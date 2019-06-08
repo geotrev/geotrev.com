@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run css:build",
+    "watch": "npm run css:watch",
+    "css:watch": "npm run css:build -- -w",
+    "css:build": "node-sass styles.scss assets/css/styles.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^9.6.0",
-    "node-sass": "^4.12.0",
-    "postcss-cli": "^6.1.2"
+    "node-sass": "^4.12.0"
   }
 }
