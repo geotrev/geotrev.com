@@ -2,15 +2,14 @@
   "name": "geotrev.com",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "noop",
   "scripts": {
     "build": "npm run css:build && postcss assets/css/styles.css -u autoprefixer --replace",
     "watch": "npm run css:build -- -w",
     "css:build": "node-sass styles.scss assets/css/styles.css"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "George Treviranus",
+  "license": "MIT",
   "dependencies": {
     "autoprefixer": "^9.6.0",
     "node-sass": "^4.12.0",
