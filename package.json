@@ -4,13 +4,18 @@
   "description": "",
   "main": "noop",
   "scripts": {
-    "build": "npm run css:build && postcss assets/css/styles.css -u autoprefixer --replace",
-    "watch": "npm run css:build -- -w",
-    "css:build": "node-sass styles.scss assets/css/styles.css"
+    "build": "npm run css:build && postcss assets/css/styles.css -u autoprefixer --replace && npm run js:build",
+    "css:build": "node-sass styles.scss assets/css/styles.css",
+    "css:watch": "npm run css:build -- -w",
+    "js:build": "babel scripts.js -o assets/js/scripts.js --no-comments --presets=@babel/preset-env",
+    "js:watch": "npm run js:build -- -w"
   },
   "author": "George Treviranus",
   "license": "MIT",
   "dependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "autoprefixer": "^9.6.0",
     "node-sass": "^4.12.0",
     "postcss-cli": "^6.1.2"
