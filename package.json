@@ -4,15 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run css:build",
-    "watch": "npm run css:watch",
-    "css:watch": "npm run css:build -- -w",
+    "build": "npm run css:build && postcss assets/css/styles.css -u autoprefixer --replace",
+    "watch": "npm run css:build -- -w",
     "css:build": "node-sass styles.scss assets/css/styles.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-sass": "^4.12.0"
+    "autoprefixer": "^9.6.0",
+    "node-sass": "^4.12.0",
+    "postcss-cli": "^6.1.2"
   }
 }
