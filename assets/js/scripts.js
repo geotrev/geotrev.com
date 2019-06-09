@@ -44,13 +44,13 @@ var Posts = function () {
 
         throw new Error("Couldn't load posts. :(");
       }).then(function (data) {
-        var currentPosts = JSON.parse(localStorage.getItem("posts"));
-        var newPosts = JSON.stringify(data.items.filter(function (item) {
+        var cache = localStorage.getItem("posts");
+        var fetchedPosts = JSON.stringify(data.items.filter(function (item) {
           return item.categories.length;
         }));
 
-        if (!currentPosts || currentPosts !== newPosts) {
-          localStorage.setItem("posts", newPosts);
+        if (!cache || cache !== fetchedPosts) {
+          localStorage.setItem("posts", fetchedPosts);
         }
 
         _this.render();
@@ -66,7 +66,7 @@ var Posts = function () {
       var id = title.replace(/\s/g, "-");
       var post = document.createElement("div");
       post.className = "post";
-      var header = document.createElement("h3");
+      var header = document.createElement("p");
       header.id = id;
       var titleLink = document.createElement("a");
       titleLink.href = url;
@@ -87,6 +87,7 @@ var Posts = function () {
 
       var target = document.getElementById("posts");
       var posts = JSON.parse(localStorage.getItem("posts"));
+      target.innerHTML = "";
       posts.forEach(function (post) {
         var postNode = _this2.postTemplate(post.title, post.link, post.pubDate);
 

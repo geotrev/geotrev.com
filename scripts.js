@@ -32,11 +32,11 @@ class Posts {
         throw new Error("Couldn't load posts. :(")
       })
       .then(data => {
-        const currentPosts = JSON.parse(localStorage.getItem("posts"))
-        const newPosts = JSON.stringify(data.items.filter(item => item.categories.length))
+        const cache = localStorage.getItem("posts")
+        const fetchedPosts = JSON.stringify(data.items.filter(item => item.categories.length))
 
-        if (!currentPosts || currentPosts !== newPosts) {
-          localStorage.setItem("posts", newPosts)
+        if (!cache || cache !== fetchedPosts) {
+          localStorage.setItem("posts", fetchedPosts)
         }
 
         this.render()
@@ -53,7 +53,7 @@ class Posts {
     const post = document.createElement("div")
     post.className = "post"
 
-    const header = document.createElement("h3")
+    const header = document.createElement("p")
     header.id = id
 
     const titleLink = document.createElement("a")
@@ -75,6 +75,8 @@ class Posts {
   render() {
     const target = document.getElementById("posts")
     const posts = JSON.parse(localStorage.getItem("posts"))
+
+    target.innerHTML = ""
 
     posts.forEach(post => {
       const postNode = this.postTemplate(post.title, post.link, post.pubDate)
