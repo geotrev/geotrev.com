@@ -11,7 +11,7 @@ var Posts = function () {
     _classCallCheck(this, Posts);
 
     this.endpoint = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@gwtrev";
-    this.fetchPosts();
+    this.render();
   }
 
   _createClass(Posts, [{
@@ -33,8 +33,8 @@ var Posts = function () {
       return month[postMonth];
     }
   }, {
-    key: "fetchPosts",
-    value: function fetchPosts() {
+    key: "render",
+    value: function render() {
       var _this = this;
 
       fetch(this.endpoint).then(function (res) {
@@ -53,17 +53,18 @@ var Posts = function () {
           localStorage.setItem("posts", fetchedPosts);
         }
 
-        _this.render();
+        _this.renderDom();
       });
     }
   }, {
     key: "postTemplate",
     value: function postTemplate(title, url, timestamp) {
-      var year = new Date(timestamp).getFullYear();
-      var day = new Date(timestamp).getDay();
-      var month = this.getMonth(new Date(timestamp).getMonth());
-      var visibleTime = "".concat(month, " ").concat(day, ", ").concat(year);
-      var id = title.replace(/\s/g, "-");
+      var year = new Date(timestamp).getFullYear(),
+          day = new Date(timestamp).getDay(),
+          month = this.getMonth(new Date(timestamp).getMonth()),
+          datetimeAttribute = timestamp.split(" ")[0],
+          visibleTime = "".concat(month, " ").concat(day, ", ").concat(year),
+          id = title.replace(/\s/g, "-");
       var post = document.createElement("div");
       post.className = "post";
       var header = document.createElement("p");
@@ -73,7 +74,7 @@ var Posts = function () {
       titleLink.innerText = title;
       var time = document.createElement("time");
       time.setAttribute("aria-labelledby", id);
-      time.setAttribute("datetime", timestamp);
+      time.setAttribute("datetime", datetimeAttribute);
       time.innerText = visibleTime;
       header.appendChild(titleLink);
       post.appendChild(header);
@@ -81,8 +82,8 @@ var Posts = function () {
       return post;
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "renderDom",
+    value: function renderDom() {
       var _this2 = this;
 
       var target = document.getElementById("posts");

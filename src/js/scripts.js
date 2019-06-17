@@ -1,7 +1,7 @@
 class Posts {
   constructor() {
     this.endpoint = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@gwtrev"
-    this.fetchPosts()
+    this.render()
   }
 
   getMonth(postMonth) {
@@ -22,7 +22,7 @@ class Posts {
     return month[postMonth]
   }
 
-  fetchPosts() {
+  render() {
     fetch(this.endpoint)
       .then(res => {
         if (res.ok) {
@@ -39,16 +39,17 @@ class Posts {
           localStorage.setItem("posts", fetchedPosts)
         }
 
-        this.render()
+        this.renderDom()
       })
   }
 
   postTemplate(title, url, timestamp) {
-    const year = new Date(timestamp).getFullYear()
-    const day = new Date(timestamp).getDay()
-    const month = this.getMonth(new Date(timestamp).getMonth())
-    const visibleTime = `${month} ${day}, ${year}`
-    const id = title.replace(/\s/g, "-")
+    const year = new Date(timestamp).getFullYear(),
+      day = new Date(timestamp).getDay(),
+      month = this.getMonth(new Date(timestamp).getMonth()),
+      datetimeAttribute = timestamp.split(" ")[0],
+      visibleTime = `${month} ${day}, ${year}`,
+      id = title.replace(/\s/g, "-")
 
     const post = document.createElement("div")
     post.className = "post"
@@ -62,7 +63,7 @@ class Posts {
 
     const time = document.createElement("time")
     time.setAttribute("aria-labelledby", id)
-    time.setAttribute("datetime", timestamp)
+    time.setAttribute("datetime", datetimeAttribute)
     time.innerText = visibleTime
 
     header.appendChild(titleLink)
@@ -72,7 +73,7 @@ class Posts {
     return post
   }
 
-  render() {
+  renderDom() {
     const target = document.getElementById("posts")
     const posts = JSON.parse(localStorage.getItem("posts"))
 

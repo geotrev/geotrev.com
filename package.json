@@ -5,9 +5,9 @@
   "main": "noop",
   "scripts": {
     "build": "npm run css:build && postcss assets/css/styles.css -u autoprefixer --replace && npm run js:build",
-    "css:build": "node-sass styles.scss assets/css/styles.css",
+    "css:build": "node-sass src/css/styles.scss assets/css/styles.css",
     "css:watch": "npm run css:build -- -w",
-    "js:build": "babel scripts.js -o assets/js/scripts.js --no-comments --presets=@babel/preset-env",
+    "js:build": "babel src/js/scripts.js -o assets/js/scripts.js --no-comments --presets=@babel/preset-env",
     "js:watch": "npm run js:build -- -w"
   },
   "author": "George Treviranus",
