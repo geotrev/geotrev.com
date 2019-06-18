@@ -20,6 +20,7 @@ time, mark, audio, video {
   border: 0;
   font-size: 100%;
   font: inherit;
+  box-sizing: border-box;
   vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
@@ -94,6 +95,58 @@ table {
   100% {
     transform: translate(19px, 0); } }
 
+/*!
+ * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+.fa,
+.fas,
+.far,
+.fal,
+.fab {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1; }
+
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+readers do not read off random characters that represent icons */
+.fa-codepen:before {
+  content: "\f1cb"; }
+
+.fa-dribbble:before {
+  content: "\f17d"; }
+
+.fa-linkedin:before {
+  content: "\f08c"; }
+
+.fa-twitter:before {
+  content: "\f099"; }
+
+.fa-github:before {
+  content: "\f09b"; }
+
+.fa-github-alt:before {
+  content: "\f113"; }
+
+/*!
+ * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+@font-face {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: normal;
+  font-display: auto;
+  src: url("../fonts/fa-brands-400.eot");
+  src: url("../fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../fonts/fa-brands-400.woff2") format("woff2"), url("../fonts/fa-brands-400.woff") format("woff"), url("../fonts/fa-brands-400.ttf") format("truetype"), url("../fonts/fa-brands-400.svg#fontawesome") format("svg"); }
+
+.fab {
+  font-family: 'Font Awesome 5 Brands'; }
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -110,58 +163,106 @@ body {
 
 .content {
   background: #373737;
-  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.19);
   padding: 20px; }
   @media only screen and (min-width: 512px) {
     .content {
-      margin: 32px; } }
+      box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.19);
+      margin: 32px;
+      padding: 32px; } }
+  @media only screen and (min-width: 768px) {
+    .content {
+      display: grid;
+      grid-gap: 16px;
+      grid-template-rows: auto auto auto;
+      grid-template-columns: 1fr 300px;
+      grid-template-areas: "header header" "previous current" "musings footer"; }
+      .content header {
+        grid-area: header; }
+      .content .musings {
+        grid-area: musings; }
+      .content .previous {
+        grid-area: previous; }
+      .content .current {
+        grid-area: current; }
+      .content footer {
+        grid-area: footer; } }
   @media only screen and (min-width: 1024px) {
     .content {
       margin: 52px; } }
   @media only screen and (min-width: 1366px) {
     .content {
-      max-width: 1218px;
-      margin: 52px auto; } }
-  .content h1,
-  .content h2,
-  .content p,
-  .content time,
-  .content a {
-    color: #d6d6d6; }
-  .content a {
-    text-decoration: none;
-    border-bottom: 1px solid #5a5a5a;
-    padding-bottom: 4px;
-    transition: 0.25s border ease-out; }
-    .content a:hover, .content a:focus {
-      border-color: #d6d6d6; }
-  .content h2 {
+      max-width: 1260px;
+      margin: 52px auto;
+      padding: 60px; } }
+
+h1,
+h2,
+p,
+time,
+a {
+  color: #d6d6d6; }
+
+a {
+  text-decoration: none;
+  border-bottom: 1px solid #5a5a5a;
+  padding-bottom: 4px;
+  transition: 0.25s border ease-out; }
+  a:hover, a:focus {
+    border-color: #d6d6d6; }
+
+h2 {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #838383; }
+
+header,
+.musings,
+.current,
+.previous {
+  margin-bottom: 32px; }
+
+.musings,
+.current,
+.previous,
+footer {
+  line-height: 2; }
+
+@media only screen and (min-width: 768px) {
+  .musings {
+    margin-bottom: 0; } }
+
+header .logo {
+  max-width: 70px;
+  height: auto;
+  margin-bottom: 9px; }
+
+header h1 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-weight: bold; }
+
+header p {
+  font-size: 16px; }
+
+.post {
+  margin-bottom: 16px; }
+  .post time {
     font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #838383; }
-  .content header,
-  .content main,
-  .content .current,
-  .content .previous {
-    margin-bottom: 40px; }
-  .content main,
-  .content .current,
-  .content .previous,
-  .content footer {
-    line-height: 2; }
-  .content header .logo {
-    max-width: 70px;
-    height: auto;
-    margin-bottom: 9px; }
-  .content header h1 {
-    font-size: 18px;
-    margin-bottom: 8px;
-    font-weight: bold; }
-  .content header p {
-    font-size: 16px; }
-  .content .post {
-    margin-bottom: 16px; }
-    .content .post time {
-      font-size: 14px;
-      color: #adadad; }
+    color: #adadad; }
+
+footer > p {
+  margin: 8px 0; }
+
+.icons {
+  display: flex;
+  padding-top: 12px; }
+  .icons a {
+    border-bottom: none;
+    opacity: 0.85;
+    transition: opacity 0.2s ease-out; }
+    .icons a:hover, .icons a:focus, .icons a:active {
+      opacity: 1; }
+  .icons .fab {
+    margin-right: 28px;
+    font-size: 24px; }

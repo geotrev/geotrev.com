@@ -1,6 +1,8 @@
 @import "reset.scss";
 @import "loader.scss";
 @import "mixins.scss";
+@import "icons/fontawesome";
+@import "icons/brands";
 
 .visually-hidden {
   position: absolute;
@@ -21,11 +23,40 @@ body {
 
 .content {
   background: #373737;
-  box-shadow: 0 10px 25px 0 rgba(#000, 0.19);
   padding: 20px;
 
   @include breakpoint(small) {
+    box-shadow: 0 10px 25px 0 rgba(#000, 0.19);
     margin: 32px;
+    padding: 32px;
+  }
+
+  @include breakpoint(medium) {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 300px;
+    grid-template-areas: "header header" "previous current" "musings footer";
+
+    header {
+      grid-area: header;
+    }
+
+    .musings {
+      grid-area: musings;
+    }
+
+    .previous {
+      grid-area: previous;
+    }
+
+    .current {
+      grid-area: current;
+    }
+
+    footer {
+      grid-area: footer;
+    }
   }
 
   @include breakpoint(large) {
@@ -33,75 +64,108 @@ body {
   }
 
   @include breakpoint(xlarge) {
-    max-width: 1218px;
+    max-width: 1260px;
     margin: 52px auto;
+    padding: 60px;
+  }
+}
+
+h1,
+h2,
+p,
+time,
+a {
+  color: #d6d6d6;
+}
+
+a {
+  text-decoration: none;
+  border-bottom: 1px solid #5a5a5a;
+  padding-bottom: 4px;
+  transition: 0.25s border ease-out;
+
+  &:hover,
+  &:focus {
+    border-color: #d6d6d6;
+  }
+}
+
+h2 {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #838383;
+}
+
+header,
+.musings,
+.current,
+.previous {
+  margin-bottom: 32px;
+}
+
+.musings,
+.current,
+.previous,
+footer {
+  line-height: 2;
+}
+
+@include breakpoint(medium) {
+  .musings {
+    margin-bottom: 0;
+  }
+}
+
+header {
+  .logo {
+    max-width: 70px;
+    height: auto;
+    margin-bottom: 9px;
   }
 
-  h1,
-  h2,
-  p,
-  time,
-  a {
-    color: #d6d6d6;
+  h1 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
   }
 
+  p {
+    font-size: 16px;
+  }
+}
+
+.post {
+  margin-bottom: 16px;
+
+  time {
+    font-size: 14px;
+    color: #adadad;
+  }
+}
+
+footer > p {
+  margin: 8px 0;
+}
+
+.icons {
+  display: flex;
+  padding-top: 12px;
+
   a {
-    text-decoration: none;
-    border-bottom: 1px solid #5a5a5a;
-    padding-bottom: 4px;
-    transition: 0.25s border ease-out;
+    border-bottom: none;
+    opacity: 0.85;
+    transition: opacity 0.2s ease-out;
 
     &:hover,
-    &:focus {
-      border-color: #d6d6d6;
+    &:focus,
+    &:active {
+      opacity: 1;
     }
   }
 
-  h2 {
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #838383;
-  }
-
-  header,
-  main,
-  .current,
-  .previous {
-    margin-bottom: 40px;
-  }
-
-  main,
-  .current,
-  .previous,
-  footer {
-    line-height: 2;
-  }
-
-  header {
-    .logo {
-      max-width: 70px;
-      height: auto;
-      margin-bottom: 9px;
-    }
-
-    h1 {
-      font-size: 18px;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    p {
-      font-size: 16px;
-    }
-  }
-
-  .post {
-    margin-bottom: 16px;
-
-    time {
-      font-size: 14px;
-      color: #adadad;
-    }
+  .fab {
+    margin-right: 28px;
+    font-size: 24px;
   }
 }

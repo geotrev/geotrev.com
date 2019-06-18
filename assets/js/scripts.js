@@ -57,17 +57,17 @@ var Posts = function () {
       });
     }
   }, {
-    key: "postTemplate",
-    value: function postTemplate(title, url, timestamp) {
+    key: "createPostNode",
+    value: function createPostNode(title, url, timestamp) {
       var year = new Date(timestamp).getFullYear(),
           day = new Date(timestamp).getDay(),
           month = this.getMonth(new Date(timestamp).getMonth()),
           datetimeAttribute = timestamp.split(" ")[0],
           visibleTime = "".concat(month, " ").concat(day, ", ").concat(year),
           id = title.replace(/\s/g, "-");
-      var post = document.createElement("div");
+      var post = document.createElement("li");
       post.className = "post";
-      var header = document.createElement("p");
+      var header = document.createElement("h3");
       header.id = id;
       var titleLink = document.createElement("a");
       titleLink.href = url;
@@ -90,7 +90,7 @@ var Posts = function () {
       var posts = JSON.parse(localStorage.getItem("posts"));
       target.innerHTML = "";
       posts.forEach(function (post) {
-        var postNode = _this2.postTemplate(post.title, post.link, post.pubDate);
+        var postNode = _this2.createPostNode(post.title, post.link, post.pubDate);
 
         target.appendChild(postNode);
       });

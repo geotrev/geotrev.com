@@ -43,7 +43,7 @@ class Posts {
       })
   }
 
-  postTemplate(title, url, timestamp) {
+  createPostNode(title, url, timestamp) {
     const year = new Date(timestamp).getFullYear(),
       day = new Date(timestamp).getDay(),
       month = this.getMonth(new Date(timestamp).getMonth()),
@@ -51,10 +51,10 @@ class Posts {
       visibleTime = `${month} ${day}, ${year}`,
       id = title.replace(/\s/g, "-")
 
-    const post = document.createElement("div")
+    const post = document.createElement("li")
     post.className = "post"
 
-    const header = document.createElement("p")
+    const header = document.createElement("h3")
     header.id = id
 
     const titleLink = document.createElement("a")
@@ -80,7 +80,7 @@ class Posts {
     target.innerHTML = ""
 
     posts.forEach(post => {
-      const postNode = this.postTemplate(post.title, post.link, post.pubDate)
+      const postNode = this.createPostNode(post.title, post.link, post.pubDate)
       target.appendChild(postNode)
     })
   }
