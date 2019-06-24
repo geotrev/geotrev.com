@@ -40,7 +40,7 @@ body {
     grid-gap: 16px;
     grid-template-rows: auto auto auto;
     grid-template-columns: 1fr 300px;
-    grid-template-areas: "header header" "previous current" "musings footer";
+    grid-template-areas: "header header" "current previous" "musings footer";
 
     header {
       grid-area: header;
