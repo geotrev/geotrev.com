@@ -10,3 +10,7 @@ $breakpoints: (
     @content;
   }
 }
+
+@function em($pixels, $font-size: 16px) {
+  @return #{$pixels / $font-size}em;
+}

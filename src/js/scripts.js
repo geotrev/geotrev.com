@@ -39,13 +39,13 @@ class Posts {
           localStorage.setItem("posts", fetchedPosts)
         }
 
-        this.renderDom()
+        this.renderToDOM()
       })
   }
 
   createPostNode(title, url, timestamp) {
     const year = new Date(timestamp).getFullYear(),
-      day = new Date(timestamp).getDay(),
+      day = new Date(timestamp).getDate(),
       month = this.getMonth(new Date(timestamp).getMonth()),
       datetimeAttribute = timestamp.split(" ")[0],
       visibleTime = `${month} ${day}, ${year}`,
@@ -73,7 +73,7 @@ class Posts {
     return post
   }
 
-  renderDom() {
+  renderToDOM() {
     const target = document.getElementById("posts")
     const posts = JSON.parse(localStorage.getItem("posts"))
 
