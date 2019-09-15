@@ -33,7 +33,7 @@ class Posts {
       })
       .then(data => {
         const cache = localStorage.getItem("posts")
-        const fetchedPosts = JSON.stringify(data.items.filter(item => item.categories.length))
+        const fetchedPosts = JSON.stringify(data.items.filter(this.fetchValidPostItems).slice(0, 4))
 
         if (!cache || cache !== fetchedPosts) {
           localStorage.setItem("posts", fetchedPosts)
@@ -41,6 +41,10 @@ class Posts {
 
         this.renderToDOM()
       })
+  }
+
+  fetchValidPostItems(item) {
+    return item.categories.length
   }
 
   createPostNode(title, url, timestamp) {

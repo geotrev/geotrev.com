@@ -19,3 +19,6 @@ readers do not read off random characters that represent icons */
 .#{$fa-css-prefix}-github-alt:before {
   content: fa-content($fa-var-github-alt);
 }
+.#{$fa-css-prefix}-medium:before {
+  content: fa-content($fa-var-medium);
+}
