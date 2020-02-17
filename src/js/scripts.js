@@ -1,13 +1,14 @@
-class Posts {
-  constructor() {
-    this.endpoint = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@gwtrev"
-    this.init()
+;(function() {
+  const endpoint = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@gwtrev"
+
+  function isPost(item) {
+    return item.categories.length
   }
 
-  init() {
+  function init() {
     if (!window.fetch) return
 
-    fetch(this.endpoint)
+    fetch(endpoint)
       .then(res => {
         if (res.ok) {
           return res.json()
@@ -17,45 +18,43 @@ class Posts {
       })
       .then(data => {
         const cache = localStorage.getItem("posts")
-        const fetchedPosts = JSON.stringify(data.items.filter(this.isPost).slice(0, 4))
+        const fetchedPosts = JSON.stringify(data.items.filter(isPost).slice(0, 4))
 
         if (!cache || cache !== fetchedPosts) {
           localStorage.setItem("posts", fetchedPosts)
         }
 
-        this.render()
+        render()
       })
   }
 
-  getMonth(postMonth) {
-    const month = {}
-    month[0] = "January"
-    month[1] = "February"
-    month[2] = "March"
-    month[3] = "April"
-    month[4] = "May"
-    month[5] = "June"
-    month[6] = "July"
-    month[7] = "August"
-    month[8] = "September"
-    month[9] = "October"
-    month[10] = "November"
-    month[11] = "December"
+  function getMonth(postMonth) {
+    const months = {
+      0: "January",
+      1: "February",
+      2: "March",
+      3: "April",
+      4: "May",
+      5: "June",
+      6: "July",
+      7: "August",
+      8: "September",
+      9: "October",
+      10: "November",
+      11: "December",
+    }
 
-    return month[postMonth]
+    return months[postMonth]
   }
 
-  isPost(item) {
-    return item.categories.length
-  }
-
-  renderPost(title, url, timestamp) {
-    const year = new Date(timestamp).getFullYear(),
-      day = new Date(timestamp).getDate(),
-      month = this.getMonth(new Date(timestamp).getMonth()),
+  function renderPost(title, url, timestamp) {
+    const date = new Date(timestamp)
+    const year = date.getFullYear(),
+      day = date.getDate(),
+      month = getMonth(date.getMonth()),
       datetimeAttribute = timestamp.split(" ")[0],
       visibleTime = `${month} ${day}, ${year}`,
-      id = title.replace(/\s/g, "-")
+      id = title.replace(/\s/g, "-").slice(0, 12)
 
     const post = document.createElement("li")
     post.className = "post"
@@ -79,17 +78,17 @@ class Posts {
     return post
   }
 
-  render() {
+  function render() {
     const target = document.getElementById("posts")
     const posts = JSON.parse(localStorage.getItem("posts"))
 
     target.innerHTML = ""
 
     posts.forEach(post => {
-      const postNode = this.renderPost(post.title, post.link, post.pubDate)
+      const postNode = renderPost(post.title, post.link, post.pubDate)
       target.appendChild(postNode)
     })
   }
-}
 
-new Posts()
+  init()
+})()
