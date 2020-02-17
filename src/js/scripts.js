@@ -1,7 +1,30 @@
 class Posts {
   constructor() {
     this.endpoint = "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@gwtrev"
-    this.render()
+    this.init()
+  }
+
+  init() {
+    if (!window.fetch) return
+
+    fetch(this.endpoint)
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+
+        throw new Error("Couldn't load posts. :(")
+      })
+      .then(data => {
+        const cache = localStorage.getItem("posts")
+        const fetchedPosts = JSON.stringify(data.items.filter(this.isPost).slice(0, 4))
+
+        if (!cache || cache !== fetchedPosts) {
+          localStorage.setItem("posts", fetchedPosts)
+        }
+
+        this.render()
+      })
   }
 
   getMonth(postMonth) {
@@ -22,32 +45,11 @@ class Posts {
     return month[postMonth]
   }
 
-  render() {
-    fetch(this.endpoint)
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-
-        throw new Error("Couldn't load posts. :(")
-      })
-      .then(data => {
-        const cache = localStorage.getItem("posts")
-        const fetchedPosts = JSON.stringify(data.items.filter(this.fetchValidPostItems).slice(0, 4))
-
-        if (!cache || cache !== fetchedPosts) {
-          localStorage.setItem("posts", fetchedPosts)
-        }
-
-        this.renderToDOM()
-      })
-  }
-
-  fetchValidPostItems(item) {
+  isPost(item) {
     return item.categories.length
   }
 
-  createPostNode(title, url, timestamp) {
+  renderPost(title, url, timestamp) {
     const year = new Date(timestamp).getFullYear(),
       day = new Date(timestamp).getDate(),
       month = this.getMonth(new Date(timestamp).getMonth()),
@@ -77,14 +79,14 @@ class Posts {
     return post
   }
 
-  renderToDOM() {
+  render() {
     const target = document.getElementById("posts")
     const posts = JSON.parse(localStorage.getItem("posts"))
 
     target.innerHTML = ""
 
     posts.forEach(post => {
-      const postNode = this.createPostNode(post.title, post.link, post.pubDate)
+      const postNode = this.renderPost(post.title, post.link, post.pubDate)
       target.appendChild(postNode)
     })
   }
