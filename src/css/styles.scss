@@ -26,56 +26,11 @@ body {
 // page styles
 
 .content {
-  padding: 20px;
+  padding: 24px;
 
   @include breakpoint(small) {
-    padding: 32px;
-  }
-
-  @include breakpoint(medium) {
-    display: grid;
-    grid-gap: 16px;
-    grid-template-rows: auto auto auto;
-    grid-template-columns: 1fr 300px;
-    grid-template-areas:
-      "header"
-      "details"
-      "what"
-      "where"
-      "projects"
-      "musings";
-
-    header {
-      grid-area: header;
-    }
-
-    .details {
-      grid-area: details;
-    }
-
-    .musings {
-      grid-area: musings;
-    }
-
-    .where {
-      grid-area: where;
-    }
-
-    .what {
-      grid-area: what;
-    }
-
-    .projects {
-      grid-area: projects;
-    }
-  }
-
-  @include breakpoint(large) {
-    padding: 60px;
-  }
-
-  @include breakpoint(xlarge) {
     max-width: em(900px);
+    padding: 60px;
     margin: 0 auto;
   }
 }
@@ -160,7 +115,8 @@ header {
 
 .icons {
   display: flex;
-  padding-top: 12px;
+  flex-wrap: wrap;
+  padding: 12px 0;
 
   a {
     border-bottom: none;
