@@ -89,15 +89,21 @@ header, .musings, .details, .what, .where, .projects {
 
 .what {
   font-size: 1.75rem;
-  margin-block-end: 3rem;
+  line-height: 1.5;
+  font-weight: bold;
+}
+
+.what p {
+  margin-block-end: 3;
 }
 
 @media only screen and (min-width: 48rem) {
   .what {
     font-size: 2.875rem;
-    line-height: 1.5;
+  }
+
+  .what p {
     margin-block-end: 4rem;
-    font-weight: bold;
   }
 
   .musings {
