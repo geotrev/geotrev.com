@@ -57,7 +57,8 @@ h1, h2, p, time, a {
   color: #d6d6d6;
 }
 
-a {
+a,
+a:visited {
   text-decoration: none;
   border-block-end: 1px solid #5a5a5a;
   padding-block-end: 0.25rem;
