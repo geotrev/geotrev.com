@@ -18,7 +18,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 :root {
   --background-color: #222222;
-  --font-family: monospace;
+  /*
+    Fira Code will be pulled from a viewer's installed fonts as a tiny bonus.
+  */
+  --font-family: Fira Code, monospace;
   --page-max-width: 60rem;
   --logo-max-width: 4rem;
 }
